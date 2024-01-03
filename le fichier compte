@@ -1,0 +1,57 @@
+#include "compte.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+void initialiserListeComptes(ListeComptes *liste) {
+    liste->debut = NULL;
+}
+
+void enregistrer_compte(ListeComptes *liste, Compte *nouveau_compte) {
+    nouveau_compte->suivant = liste->debut;
+    liste->debut = nouveau_compte;
+}
+
+void debloquer_compte(ListeComptes *liste, long numero) {
+    Compte *courant = liste->debut;
+
+    while (courant != NULL) {
+        if (courant->numero == numero) {
+            if (courant->etat == BLOQUE) {
+                courant->etat = LIBRE;
+                printf("Compte %ld débloqué avec succès.\n", numero);
+            } else {
+                printf("Le compte %ld n'est pas bloqué.\n", numero);
+            }
+            return;
+        }
+        courant = courant->suivant;
+    }
+
+    printf("Aucun compte trouvé avec le numéro %ld\n", numero);
+}
+
+// le fichier compte.h
+#ifndef COMPTE_H
+#define COMPTE_H
+
+typedef enum { EPARGNE, COURANT } TypeCompte;
+typedef enum { LIBRE, BLOQUE } EtatCompte;
+
+typedef struct Compte {
+    long numero;
+    TypeCompte type;
+    long numero_client;
+    double solde;
+    EtatCompte etat;
+    struct Compte *suivant;
+} Compte;
+
+typedef struct {
+    Compte *debut;
+} ListeComptes;
+
+void initialiserListeComptes(ListeComptes *liste);
+void enregistrer_compte(ListeComptes *liste, Compte *nouveau_compte);
+void debloquer_compte(ListeComptes *liste, long numero);
+
+#endif
