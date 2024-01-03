@@ -1,0 +1,88 @@
+#include "client.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+void initialiserListeClients(ListeClients *liste) {
+    liste->debut = NULL;
+}
+
+void enregistrer_client(ListeClients *liste, Client *nouveau_client) {
+    nouveau_client->suivant = liste->debut;
+    liste->debut = nouveau_client;
+}
+
+void modifier_client(ListeClients *liste, long numero) {
+    Client *courant = liste->debut;
+
+    while (courant != NULL) {
+        if (courant->numero == numero) {
+            printf("Modification du client %ld :\n", numero);
+
+            printf("Nouveau nom : ");
+            scanf("%s", courant->nom);
+
+            printf("Nouveau prénom : ");
+            scanf("%s", courant->prenom);
+
+            printf("Nouveau genre (M/F) : ");
+            scanf(" %c", &courant->genre);
+
+            printf("Nouvelle date de naissance (JJ/MM/AAAA) : ");
+            scanf("%s", courant->date_naissance);
+
+            printf("Nouveau lieu de naissance : ");
+            scanf("%s", courant->lieu_naissance);
+
+            printf("Nouvelle profession : ");
+            scanf("%s", courant->profession);
+
+            printf("Modification effectuée avec succès.\n");
+            return;
+        }
+        courant = courant->suivant;
+    }
+
+    printf("Aucun client trouvé avec le numéro %ld\n", numero);
+}
+
+
+Client* rechercher_client(ListeClients *liste, long numero) {
+    Client *courant = liste->debut;
+
+    while (courant != NULL) {
+        if (courant->numero == numero) {
+            return courant;
+        }
+        courant = courant->suivant;
+    }
+
+    return NULL;
+}
+
+// client.h
+#ifndef CLIENT_H
+#define CLIENT_H
+
+typedef struct Client {
+    long numero;
+    char nom[50];
+    char prenom[50];
+    char genre;
+    char date_naissance[15];
+    char lieu_naissance[50];
+    char profession[50];
+    struct Client *suivant;
+} Client;
+
+typedef struct {
+    Client *debut;
+} ListeClients;
+
+void initialiserListeClients(ListeClients *liste);
+void enregistrer_client(ListeClients *liste, Client *nouveau_client);
+void modifier_client(ListeClients *liste, long numero);
+Client* rechercher_client(ListeClients *liste, long numero);
+
+#endif
+
+
