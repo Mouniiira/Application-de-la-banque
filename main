@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "client.h"
+#include "compte.h"
+
+int main() {
+    ListeClients listeClients;
+    initialiserListeClients(&listeClients);
+
+    ListeComptes listeComptes;
+    initialiserListeComptes(&listeComptes);
+
+    int choix;
+    long numeroRecherche;
+    long numeroModification;
+
+    do {
+        printf("\nMenu Principal\n");
+        printf("1. Enregistrer un nouveau client\n");
+        printf("2. Rechercher un client par numéro\n");
+        printf("3. Enregistrer un nouveau compte\n");
+        printf("4. Débloquer un compte\n");
+        printf("5. Modifier les informations d'un client\n");
+        printf("0. Quitter\n");
+
+        printf("Choix : ");
+        scanf("%d", &choix);
+
+        switch (choix) {
+            case 1:
+                {
+                    Client nouveauClient;
+
+
+                    enregistrer_client(&listeClients, &nouveauClient);
+                    printf("Client enregistré avec succès.\n");
+                }
+                break;
+            case 2:
+                printf("Entrez le numéro du client à rechercher : ");
+                scanf("%ld", &numeroRecherche);
+                Client *clientTrouve = rechercher_client(&listeClients, numeroRecherche);
+                if (clientTrouve != NULL) {
+                    printf("Client trouvé :\n");
+                    printf("Numéro: %ld, Nom: %s, Prénom: %s\n", clientTrouve->numero, clientTrouve->nom, clientTrouve->prenom);
+                } else {
+                    printf("Aucun client trouvé avec le numéro %ld\n", numeroRecherche);
+                }
+                break;
+            case 3:
+                {
+
+                    Compte nouveauCompte;
+
+
+                    enregistrer_compte(&listeComptes, &nouveauCompte);
+                    printf("Compte enregistré avec succès.\n");
+                }
+                break;
+            case 4:
+                {
+                    long numeroDeblocage;
+
+
+                    debloquer_compte(&listeComptes, numeroDeblocage);
+                    printf("Compte débloqué avec succès.\n");
+                }
+                break;
+            case 5:
+                printf("Entrez le numéro du client à modifier : ");
+                scanf("%ld", &numeroModification);
+                modifier_client(&listeClients, numeroModification);
+                break;
+            case 0:
+                printf("Programme terminé.\n");
+                break;
+            default:
+                printf("Choix invalide. Veuillez réessayer.\n");
+        }
+
+    } while (choix != 0);
+
+    return 0;
+}
