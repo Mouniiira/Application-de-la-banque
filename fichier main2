@@ -1,0 +1,119 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "client.h"
+#include "compte.h"
+#include "client.c"
+#include "compte.c"
+int main() {
+    ListeClients listeClients;
+    initialiserListeClients(&listeClients);
+
+    ListeComptes listeComptes;
+    initialiserListeComptes(&listeComptes);
+
+    int choix;
+    long numeroRecherche;
+    long numeroModification;
+
+    do {
+        printf("\nMenu principal\n");
+        printf("1. Enregistrer un nouveau client\n");
+        printf("2. Rechercher un client par numéro\n");
+        printf("3. Enregistrer un nouveau compte\n");
+        printf("4. Débloquer un compte\n");
+        printf("5. Modifier les informations d'un client\n");
+        printf("0. Quitter\n");
+
+        printf("Choix : ");
+        scanf("%d", &choix);
+
+        switch (choix) {
+            case 1: {
+                Client nouveauClient;
+
+                printf("Entrez le numéro du client : ");
+                scanf("%ld", &nouveauClient.numero);
+
+                printf("Entrez le nom du client : ");
+                scanf("%s", nouveauClient.nom);
+
+                printf("Entrez le prénom du client : ");
+                scanf("%s", nouveauClient.prenom);
+
+                printf("Entrez le genre du client (M/F) : ");
+                scanf(" %c", &nouveauClient.genre);
+
+                printf("Entrez la date de naissance du client (JJ/MM/AAAA) : ");
+                scanf("%s", nouveauClient.date_naissance);
+
+                printf("Entrez le lieu de naissance du client : ");
+                scanf("%s", nouveauClient.lieu_naissance);
+
+                printf("Entrez la profession du client : ");
+                scanf("%s", nouveauClient.profession);
+
+                enregistrer_client(&listeClients, &nouveauClient);
+
+                printf("Client enregistré avec succès.\n");
+                break;
+            }
+
+            case 2:
+                printf("Entrez le numéro du client à rechercher : ");
+                scanf("%ld", &numeroRecherche);
+                Client *clientTrouve = rechercher_client(&listeClients, numeroRecherche);
+                if (clientTrouve != NULL) {
+                    printf("Client trouvé :\n");
+                    printf("Numéro : %ld, Nom : %s, Prénom : %s\n", clientTrouve->numero, clientTrouve->nom, clientTrouve->prenom);
+                } else {
+                    printf("Aucun client trouvé avec le numéro %ld\n", numeroRecherche);
+                }
+                break;
+            case 3: {
+                Compte nouveauCompte;
+                printf("Entrez le numéro du compte : ");
+                scanf("%ld", &nouveauCompte.numero);
+
+                printf("Entrez le type du compte (0 pour EPARGNE, 1 pour COURANT) : ");
+                scanf("%d", (int*)&nouveauCompte.type);
+
+                printf("Entrez le numéro du client associé au compte : ");
+                scanf("%ld", &nouveauCompte.numero_client);
+
+                printf("Entrez le solde initial du compte : ");
+                scanf("%lf", &nouveauCompte.solde);
+
+                printf("Entrez l'état du compte (0 pour LIBRE, 1 pour BLOQUE) : ");
+                scanf("%d", (int*)&nouveauCompte.etat);
+
+                enregistrer_compte(&listeComptes, &nouveauCompte);
+
+                printf("Compte enregistré avec succès.\n");
+
+                break;
+            }
+            case 4: {
+                long numeroDeblocage;
+                printf("Entrez le numéro du compte à débloquer/bloquer : ");
+                scanf("%ld", &numeroDeblocage);
+
+                debloquer_compte(&listeComptes, numeroDeblocage);
+                printf("Opération effectuée avec succès.\n");
+                break;
+            }
+            case 5:
+                printf("Entrez le numéro du client à modifier : ");
+                scanf("%ld", &numeroModification);
+                modifier_client(&listeClients, numeroModification);
+                break;
+            case 0:
+                printf("Programme terminé.\n");
+                break;
+            default:
+                printf("Choix invalide. Veuillez réessayer.\n");
+        }
+
+    } while (choix != 0);
+
+    return 0;
+}
