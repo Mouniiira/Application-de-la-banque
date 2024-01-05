@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include "rembourssement.h"
+
+// Fonction pour enregistrer un remboursement avec ses détails
+void enregistrer_remboursement(Remboursement *remboursement, int id_rembourse, int id_loan, float montant, int mois) {
+    remboursement->id_rembourse = id_rembourse;
+    remboursement->id_loan = id_loan;
+    remboursement->montant_rembourse = montant;
+    remboursement->mois = mois;
+}
+
+// Fonction pour afficher les détails d'un remboursement
+void afficher_remboursement(Remboursement remboursement) {
+    printf("ID Remboursement: %d\n", remboursement.id_rembourse);
+    printf("ID Emprunt: %d\n", remboursement.id_loan);
+    printf("Montant remboursé: %.2f\n", remboursement.montant_rembourse);
+    printf("Mois de remboursement: %d\n", remboursement.mois);
+}
+
+//fichier .h
+#ifndef REMBOURSE_H
+#define REMBOURSE_H
+
+typedef struct Remboursement{
+int id_rembourse;
+int id_loan;
+float montant_rembourse;
+int mois;
+} Remboursement;
+
+void enregistrer(Remboursement *remboursement, int id_rembourse, int id_loan, float montant_rembourse, int mois);
+void afficher(Remboursement remboursement);
+
+#endif
