@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include "emprunts.h"
+
+void initializer_loan(Emprunt *emprunt, int id_loan, int id_client, float montant, int duree, float interet){
+    emprunt->id_loan=id_loan;
+    emprunt->id_client=id_client;
+    emprunt->montant=montant;
+    emprunt->duree=duree;
+    emprunt->interet=interet;
+}
+
+float calcul_interets(Emprunt emprunt){
+    return emprunt.montant * emprunt.interet * emprunt.duree/ 12.0;
+}
+
+float calcul_total(Emprunt emprunt){
+    return emprunt.montant + calcul_interets(emprunt);
+}
+
+void afficher(Emprunt emprunt){
+    printf("ID emprunt: %d\n", emprunt.id_loan);
+    printf("ID client: %d\n", emprunt.id_client);
+    printf("Montant emprunte: %.2f\n", emprunt.montant);
+    printf("Duree remboursement: %d mois\n", emprunt.duree);
+    printf("Taux d'interet: %.2f%%\n", emprunt.interet * 100);
+    printf("Montant total a rembourser: %.2f\n", calcul_total(emprunt));
+}
+
+//fichier .h
+#ifndef EMPRUNT_H
+#define EMPRUNT_H
+
+typedef struct Emprunt{
+int id_loan;
+int id_client;
+float montant;
+int duree;
+float interet;
+} Emprunt;
+
+void initializer_loan(Emprunt *emprunt, int id_loan, int id_client, float montant, int duree, float interet);
+float calcul_interets(Emprunt emprunt);
+float calcul_total(Emprunt emprunt);
+void afficher(Emprunt emprunt);
+
+#endif
