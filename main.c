@@ -45,23 +45,23 @@ int main()
         SetConsoleTextAttribute(hConsole, 12);
         printf("\03 1. Enregistrer un nouveau client \03\n");
         SetConsoleTextAttribute(hConsole, 8);
-        printf("2. Rechercher un client par numéro\n");
+        printf("\05 2. Rechercher un client par numéro \05\n");
         SetConsoleTextAttribute(hConsole, 12);
-        printf("3. Enregistrer un nouveau compte\n");
+        printf("\03 3. Enregistrer un nouveau compte \03\n");
         SetConsoleTextAttribute(hConsole, 8);
-        printf("4. Débloquer un compte\n");
+        printf("\05 4. Débloquer un compte \05\n");
         SetConsoleTextAttribute(hConsole, 12);
-        printf("5. Modifier les informations d'un client\n");
+        printf("\03 5. Modifier les informations d'un client \03\n");
         SetConsoleTextAttribute(hConsole, 8);
-        printf("6. Solliciter un emprunt\n");
+        printf("\05 6. Solliciter un emprunt \05\n");
         SetConsoleTextAttribute(hConsole, 12);
-        printf("7. Afficher les emprunts\n");
+        printf("\03 7. Afficher les emprunts \03\n");
         SetConsoleTextAttribute(hConsole, 8);
-        printf("8. Effectuer un remboursement\n");
+        printf("\05 8. Effectuer un remboursement \05\n");
         SetConsoleTextAttribute(hConsole, 12);
-        printf("9. Afficher les remboursements\n");
+        printf("\03 9. Afficher les remboursements \03\n");
         SetConsoleTextAttribute(hConsole, 8);
-        printf("0. Quitter\n");
+        printf("\05 0. Quitter \05\n");
 
         printf("Choix : ");
         scanf("%d", &choix);
@@ -74,6 +74,11 @@ int main()
         case 1:
         {
             Client nouveauClient;
+
+            SetConsoleTextAttribute(hConsole, 6);
+            printf("\03 Enregistrer un nouveau client \03\n\n");
+
+            SetConsoleTextAttribute(hConsole, 15);
 
             printf("Entrez le numéro du client : ");
             scanf("%ld", &nouveauClient.numero);
@@ -101,12 +106,16 @@ int main()
             system("cls");
             SetConsoleTextAttribute(hConsole, 15);
             ENTETE;
-            printf("Client enregistré avec succès.\n");
+            printf("Client enregistré avec succès.\n\n");
             break;
         }
 
 
         case 2:
+            SetConsoleTextAttribute(hConsole, 6);
+            printf("\05 Rechercher un client par numéro \05\n\n");
+
+            SetConsoleTextAttribute(hConsole, 15);
             printf("Entrez le numéro du client à rechercher : ");
             scanf("%ld", &numeroRecherche);
             Client *clientTrouve = rechercher_client(&listeClients, numeroRecherche);
@@ -129,6 +138,10 @@ int main()
         case 3:
         {
             Compte nouveauCompte;
+            SetConsoleTextAttribute(hConsole, 6);
+            printf("\03 Enregistrer un nouveau compte \03\n\n");
+
+            SetConsoleTextAttribute(hConsole, 15);
             printf("Entrez le numéro du compte : ");
             scanf("%ld", &nouveauCompte.numero);
 
@@ -155,6 +168,10 @@ int main()
 
         case 4:
         {
+            SetConsoleTextAttribute(hConsole, 6);
+            printf("\05 Débloquer un compte \05\n\n");
+
+            SetConsoleTextAttribute(hConsole, 15);
             long numeroDeblocage;
             printf("Entrez le numéro du compte à débloquer/bloquer : ");
             scanf("%ld", &numeroDeblocage);
@@ -166,6 +183,10 @@ int main()
             break;
         }
         case 5:
+            SetConsoleTextAttribute(hConsole, 6);
+            printf("\03 Modifier les informations d'un client \03\n\n");
+
+            SetConsoleTextAttribute(hConsole, 15);
             printf("Entrez le numéro du client à modifier : ");
             scanf("%ld", &numeroModification);
             modifier_client(&listeClients, numeroModification);
@@ -175,6 +196,10 @@ int main()
             break;
         case 6:
         {
+            SetConsoleTextAttribute(hConsole, 6);
+            printf("\05 Solliciter un emprunt \05\n\n");
+
+            SetConsoleTextAttribute(hConsole, 15);
             printf("Entrez le numéro du client : ");
             scanf("%ld", &numeroClient);
 
@@ -218,6 +243,10 @@ int main()
 
         case 7:
         {
+            SetConsoleTextAttribute(hConsole, 6);
+            printf("\03 Afficher les emprunts \03\n\n");
+
+            SetConsoleTextAttribute(hConsole, 15);
             printf("Entrez le numéro du client : ");
             scanf("%ld", &numeroClient);
 
@@ -257,6 +286,10 @@ int main()
 
 
         case 8:
+            SetConsoleTextAttribute(hConsole, 6);
+            printf("\05 Effectuer un remboursement \05\n\n");
+
+            SetConsoleTextAttribute(hConsole, 15);
             printf("Entrez le numéro de l'emprunt à rembourser : ");
             scanf("%ld", &numeroEmprunt);
 
@@ -290,12 +323,18 @@ int main()
 
 
         case 9:
+            SetConsoleTextAttribute(hConsole, 6);
+            printf("\03 Afficher les remboursements \03\n\n");
+
+            SetConsoleTextAttribute(hConsole, 15);
             afficher_remboursements(&listeRemboursements);
             break;
 
     case 0:
         {
-            printf("Programme terminé.\n");
+            SetConsoleTextAttribute(hConsole, 3);
+            printf("Programme terminé.\02\n");
+            SetConsoleTextAttribute(hConsole, 15);
             }
             break;
 }
